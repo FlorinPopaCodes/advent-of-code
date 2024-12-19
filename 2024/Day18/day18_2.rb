@@ -49,11 +49,13 @@ def bfs(grid, start, goal)
   return -1  # Return -1 if no path found
 end
 
-current = runtime
 
-while bfs(grid, start, goal) != -1
-  current += 1
-  grid[@lines[current][1]][@lines[current][0]] = false
+index = (1024..@lines.size).bsearch do |current|
+  grid = Array.new(grid_h) { Array.new(grid_w) { true } }
+  current.times do |i|
+    grid[@lines[i][1]][@lines[i][0]] = false
+  end
+  bfs(grid, start, goal) == -1
 end
 
-p @lines[current]
+p @lines[index - 1]
