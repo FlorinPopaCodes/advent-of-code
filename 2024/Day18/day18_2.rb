@@ -55,7 +55,7 @@ index = (1024..@lines.size).bsearch do |current|
   current.times do |i|
     grid[@lines[i][1]][@lines[i][0]] = false
   end
-  bfs(grid, start, goal) == -1
+  bfs(grid, start, goal) < 0
 end
 
 p @lines[index - 1]
