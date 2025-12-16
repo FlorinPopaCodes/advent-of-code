@@ -3,7 +3,7 @@ require 'debug'
 # require 'algorithms'
 # include Containers 
 require 'bigdecimal'
-@lines = File.readlines('./2024/Day15/input').map(&:strip)
+@lines = File.readlines('./2024/Day15/test_big').map(&:strip)
 
 
 @directions = {
@@ -226,10 +226,58 @@ end
   end
 end
 
+def optimize_movements(movements)
+  return movements if movements.length <= 2
+  
+  # Keep first and last movements
+  first = movements.first
+  last = movements.last
+  
+  # Optimize middle movements
+  middle = movements[1...-1]
+  optimized_middle = []
+  i = 0
+  
+  while i < middle.length
+    next if middle[i].nil?
+    
+    # Look ahead for opposite movements
+    j = i + 1
+    count_forward = 1
+    count_backward = 0
+    
+    while j < middle.length
+      break if middle[j].nil?
+      
+      case [middle[i], middle[j]]
+      when [:left, :right], [:right, :left],
+           [:up, :down], [:down, :up]
+        count_backward += 1
+        count_forward += 1
+      else
+        break
+      end
+      j += 1
+    end
+    
+    # If we found an equal number of opposite movements, skip them all
+    if count_forward == count_backward * 2
+      i += count_forward
+    else
+      optimized_middle << middle[i]
+      i += 1
+    end
+  end
+  
+  # Combine first, optimized middle, and last movements
+  [first] + optimized_middle + [last]
+end
+
 puts "\nInitial map state:"
 @map.print_map
 
 # Process all movements
+@movements = optimize_movements(@movements)
 @movements.each do |direction|
   next unless direction # Skip invalid movements
   @map.move(direction)
