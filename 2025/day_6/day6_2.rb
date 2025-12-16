@@ -26,7 +26,7 @@ end
 # TODO(human): Extract numbers for Part 2
 def extract_numbers(col_range, grid)
   col_range.to_a.reverse.map do |c|
-    0.upto(grid.size - 2).map { |l| grid[l][c] }.join.to_i
+    grid[0..-2].map { _1[c] }.join.to_i
   end
 end
 
