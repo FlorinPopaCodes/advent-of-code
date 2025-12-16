@@ -20,6 +20,7 @@ puzzle_map.each_with_index do |row, r|
   end
 end
 
+# TODO: modify functional graph and check for loops
 def check_loop(grid, gc, gr)
   dc = 0
   dr = -1
@@ -63,7 +64,8 @@ def initial_path(grid, gc, gr)
   path
 end
 
-path =  initial_path(puzzle_map, guard_position[:c], guard_position[:r])
+# TODO: create functional graph
+path = initial_path(puzzle_map, guard_position[:c], guard_position[:r])
 
 loops = 0
 
@@ -77,4 +79,4 @@ WIDTH.times do |cc|
   end
 end
 
-p loops # 1530
+p loops

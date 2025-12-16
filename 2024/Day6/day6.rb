@@ -37,4 +37,4 @@ while true
   end
 end
 
-p visited.size # 4663
+p visited.size
