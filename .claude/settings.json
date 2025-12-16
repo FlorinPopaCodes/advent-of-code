@@ -1,5 +1,3 @@
 {
-  "enabledPlugins": {
-    "learning-output-style@claude-code-plugins": true
-  }
+  "outputStyle": "AoC Companion"
 }
